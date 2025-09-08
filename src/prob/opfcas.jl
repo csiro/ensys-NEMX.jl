@@ -4,7 +4,7 @@ export run_acdcopfcas
 ""
 function run_acdcopfcas(data::Dict{String,Any}, model_type::Type, solver; kwargs...)
     solution_processors = [solution_processor]
-    return _PM.solve_model(data, model_type, solver, build_acdcopfcas; ref_extensions=[_PMACDC.add_ref_dcgrid!], solution_processors, kwargs...)
+    return _PM.solve_model(data, model_type, solver, build_acdcopfcas; ref_extensions=[_PMACDC.add_ref_dcgrid!, _PMACDC.ref_add_gendc!], solution_processors, kwargs...)
 end
 
 ""
@@ -22,6 +22,7 @@ function build_acdcopfcas(pm::_PM.AbstractPowerModel)
     _PMACDC.variable_dcbranch_current(pm)
     _PMACDC.variable_dc_converter(pm)
     _PMACDC.variable_dcgrid_voltage_magnitude(pm)
+    _PMACDC.variable_dcgenerator_power(pm)
 
     _PM.constraint_model_voltage(pm)
     _PMACDC.constraint_voltage_dc(pm)
