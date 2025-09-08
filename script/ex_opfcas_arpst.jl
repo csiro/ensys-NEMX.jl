@@ -3,8 +3,8 @@ Pkg.activate(".")
 
 using JuMP
 using Ipopt
-using Cbc
 using Gurobi
+using Cbc
 using PowerModels
 using PowerModelsACDC
 using PowerModelsACDCsecurityconstrained
@@ -99,7 +99,7 @@ price_dc = [region => dc_data["bus"]["$(bus)"]["lam_kcl_r"] for (region, bus) in
 
 
 # run dispatch with shadow prices (2)
-pm = _PM.instantiate_model(dc_data, _PM.DCPPowerModel, NEMX.build_acdcopfcas, ref_extensions=[_PMACDC.add_ref_dcgrid!], setting=setting);
+pm = _PM.instantiate_model(dc_data, _PM.DCPPowerModel, NEMX.build_acdcopfcas, ref_extensions=[_PMACDC.add_ref_dcgrid!, _PMACDC.ref_add_gendc!], setting=setting);
 dc_result = optimize_model!(pm, optimizer=gurobi_solver)
 JuMP.has_duals(pm.model)
 for (i,b) in dc_data["bus"]
@@ -127,7 +127,7 @@ T1 = NEMX.create_single_price_table(rows_DC)
 
 # state-wide nodal prices
 price_DC = NEMX.create_region_wise_nodal_prices(dc_data)
-plot_state_wide_nodal_lmps(price_DC, "NSW")
+NEMX.plot_state_wide_nodal_lmps(price_DC, "NSW")
 
 
 
