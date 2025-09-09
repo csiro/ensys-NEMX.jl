@@ -130,6 +130,102 @@ price_DC = NEMX.create_region_wise_nodal_prices(dc_data)
 NEMX.plot_state_wide_nodal_lmps(price_DC, "NSW")
 
 
+# reading the newcastle site data
+load_energy_centre = CSV.read("./test/data/ar-pst-topic-8-c/combined_oa_chiller_building_newcastle.csv", DataFrame)
+chiller_power = load_energy_centre[!, 3]
+site_total_load = load_energy_centre[!, 4]
+number_of_steps = length(site_total_load)
 
 
+# visuallize to select node for out load
+using PowerPlots
+using ColorSchemes
 
+data_nsw = parse_file("./test/data/matpower/snemNSW.m")
+PowerPlots.powerplot(data_nsw)
+
+# reading synthetic coordinates to visuallize
+xy_data = CSV.read("test/data/matpower/ac_lines.csv", DataFrame)
+
+for (i,bus) in data_nsw["bus"]
+    for j in eachindex(xy_data.f_bus)
+        if xy_data.f_bus[j] == bus["index"]
+            bus["xcoord_1"] = xy_data.f_bus_x[j]
+            bus["ycoord_1"] = xy_data.f_bus_y[j]
+        end
+    end
+
+    for k in eachindex(xy_data.t_bus)
+        if xy_data.t_bus[k] == bus["index"]
+            bus["xcoord_1"] = xy_data.t_bus_x[k]
+            bus["ycoord_1"] = xy_data.t_bus_y[k]
+        end
+    end
+end
+
+for (i,bus) in data_nsw["bus"]
+    if haskey(bus, "x") && haskey(bus, "y")
+         bus["xcoord_1"] = bus["x"]
+         bus["ycoord_1"] = bus["y"]
+    end
+end
+
+
+for (i,branch) in data_nsw["branch"]
+    branch["base_kv"] = data_nsw["bus"]["$(branch["f_bus"])"]["base_kv"]
+end
+
+for (i, gen) in data_nsw["gen"]
+    gen["xcoord_1"] = data_nsw["bus"]["$(gen["gen_bus"])"]["xcoord_1"]
+    gen["ycoord_1"] = data_nsw["bus"]["$(gen["gen_bus"])"]["ycoord_1"]
+end
+
+for (i, load) in data_nsw["load"]
+    load["xcoord_1"] = data_nsw["bus"]["$(load["load_bus"])"]["xcoord_1"]
+    load["ycoord_1"] = data_nsw["bus"]["$(load["load_bus"])"]["ycoord_1"]
+end
+
+for (i,gen_nsw) in data_nsw["gen"]
+    for (j,gen) in data["gen"]
+        if gen_nsw["name"] == gen["name"]
+            gen_nsw["fuel"] = gen["fuel"]
+        end
+    end
+end
+
+p1 = powerplot(data_nsw; width=1000, height=1000, bus=(:size=>20), connected_components=[], gen=(:size=>0),load=(:size=>0), branch=(:size=>2), connector=(:size=>0, :color=>:white), shunt=(:size=>0), :branch=>(:data=>:base_kv, :color=>[:white, :blue], :data_type=>:quantitative), :storage=>(:color=>:yellow,:size=>0), fixed=true) 
+p2 = powerplot(data_nsw; width=1000, height=1000, bus=(:size=>30), connected_components=[:gen, :storage, :load], gen=(:size=>50),load=(:size=>20, :color=>:red), branch=(:size=>2), connector=(:size=>1), shunt=(:size=>0, :color=>:white), :storage=>(:color=>:yellow,:size=>400), :branch=>(:data=>:base_kv, :color=>[:white, :blue], :data_type=>:quantitative, :transformer_color=> :red), :gen=>(:data=>:fuel, :color=>colorscheme2array(ColorSchemes.colorschemes[:seaborn_deep])), fixed=true) 
+ 
+# node selected load at 11kv/ pd = 0.3 pu/ qd = 0.0437/ bus_1649
+bus_id = [bus["index"] for (i,bus) in data["bus"] if bus["name"] == "bus_1649"][1]
+load_id = [load["index"] for (i,load) in data["load"] if load["load_bus"] == bus_id][1]
+
+# load 605 is already modelled as flex load, which we simplify
+delete!(data["load"]["$load_id"], "fcas")
+delete!(data["load"]["$load_id"], "fcas_cost")
+
+price_NSW = []
+load_605 = []
+for i=1:1:number_of_steps
+    data["load"]["605"]["cost"][1:2:9] .= (site_total_load[i] - chiller_power[i])/1E5
+    data["load"]["605"]["cost"][2:2:10] .= 10
+    data["load"]["605"]["cost"][11:2:19] .= site_total_load[i]/1E5
+    data["load"]["605"]["cost"][12:2:20] .= 1000
+    data["load"]["605"]["pmax"] = site_total_load[i]/1E5
+    data["load"]["605"]["pmin"] = (site_total_load[i] - chiller_power[i])/1E5
+
+    pm = _PM.instantiate_model(data, _PM.DCPPowerModel, NEMX.build_acdcopfcas, ref_extensions=[_PMACDC.add_ref_dcgrid!, _PMACDC.ref_add_gendc!], setting=setting);
+    dc_result = optimize_model!(pm, optimizer=gurobi_solver)
+    JuMP.has_duals(pm.model)
+    for (i,b) in data["bus"]
+        b["lam_kcl_r"] = JuMP.shadow_price(pm.sol[:it][:pm][:nw][0][:bus][b["index"]][:lam_kcl_r])
+    end
+    push!(price_NSW, data["bus"]["130"]["lam_kcl_r"])
+    push!(load_605, dc_result["solution"]["load"]["605"]["pd"])
+end
+
+plot([p for p in price_NSW])
+
+trace1 = scatter(y = site_total_load / 1e5, mode = "lines", name = "total_site_load")
+trace2 = scatter(y = [p for p in load_605], mode = "lines", name = "scheduled_site_load")
+plot([trace1, trace2])
