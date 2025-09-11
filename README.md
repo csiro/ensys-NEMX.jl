@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.25919/v33w-8011.svg)](https://doi.org/10.25919/v33w-8011)
+
 # NEMX.jl
  NEMX.jl is an [open source](https://github.com/csiro-internal/NEMX.jl/blob/main/LICENSE) package developed in [Julia](http://julialang.org/) using [JuMP](http://jump.dev/) based on [PowerModelsACDC.jl](https://github.com/Electa-Git/PowerModelsACDC.jl) that provides physics-based co-optimized electricity and frequency control ancillary services (FCAS) market clearing models for the Australian National Electricty Market (NEM) incorporating AC as well as HVDC network representation. The package uses the synthetic NEM system dataset [Synthetic-NEM-2000bus-Data](https://github.com/csiro-energy-systems/Synthetic-NEM-2000bus-Data). Some of the features of these models are listed as follows.
 
@@ -71,6 +73,9 @@ Make sure that your Julia registry is up to date. To detect and download the lat
 
 * Ghulam Mohy ud din (CSIRO): Main developer
 * Mark-Colquhoun (CSIRO): OPFCAS model and MLF calculation
+
+## Citation
+Mohy Ud Din, Ghulam; & Colquhoun, Mark (2025): NEMX.jl. CSIRO. v1. Software. https://doi.org/10.25919/v33w-8011
 
 
 ## License
