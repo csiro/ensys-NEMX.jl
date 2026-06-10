@@ -48,6 +48,21 @@ The following [PowerModelsACDC.jl](https://github.com/Electa-Git/PowerModelsACDC
 * IVRPowerModel
 * DCPPowerModel
 
+## Solver
+
+`NEMX.jl` integrates with any [JuMP](https://jump.dev)-supported solver.
+Reference benchmarks are provided for:
+
+| Solver  | License     | Typical use                         |
+|---------|-------------|-------------------------------------|
+| HiGHS   | Open-source | LP / MILP, default reference solver |
+| Gurobi  | Commercial  | Large-scale MILP, production runs   |
+| Juniper | Open-Source | Large-scale MINLP, heuristic        |
+| Ipopt   | Open-source | Continuous LP, NLP solves           |
+
+Install your chosen solver via the corresponding Julia package
+(`HiGHS.jl`, `Gurobi.jl`, `Juniper.jl`, `Ipopt.jl`) and configure it in your
+run script.
 
 ## Usage
 
