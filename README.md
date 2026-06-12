@@ -95,6 +95,5 @@ Mohy Ud Din, Ghulam; & Colquhoun, Mark (2025): NEMX.jl. CSIRO. v1. Software. htt
 
 ## License
 
-`NEMX.jl` is distributed under the CSIRO Open Source Software Licence 
-Agreement (BSD 3 Clause Licence), — see [LICENSE](LICENSE).
+This package is licensed under the terms of the BSD 3 Clause Licence (BSD-3-Clause). See the [LICENSE](LICENSE) file for details.
 
