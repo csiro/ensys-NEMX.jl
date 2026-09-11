@@ -65,14 +65,14 @@
 # EXAMPLES
 #
 #   # A DC-only day: quick, and the right first run to validate a window
-#   julia --project=. scripts/run_network_day.jl 2025-09-02T04:05 288 DCP
+#   julia --project=. scripts/nbenchmark/run_network_day.jl 2025-09-02T04:05 288 DCP
 #
 #   # Every formulation, with per-bus LMPs — an overnight job
-#   julia --project=. scripts/run_network_day.jl 2025-09-02T04:05 288 \
+#   julia --project=. scripts/nbenchmark/run_network_day.jl 2025-09-02T04:05 288 \
 #         DCP,LPACC,SOCWR,QCRM,ACP --with-lmp
 #
 #   # A single hour, to check a change
-#   julia --project=. scripts/run_network_day.jl 2025-09-02T12:00 12 DCP,ACP
+#   julia --project=. scripts/nbenchmark/run_network_day.jl 2025-09-02T12:00 12 DCP,ACP
 #
 # RUNTIME: DCP and DCP_MLF are LPs, seconds per interval. ACP and the convex
 # relaxations are 2000-bus non-linear programs taking tens of seconds each, so a
@@ -109,7 +109,7 @@ const CHECKPOINT_EVERY = script_integer(script_option("checkpoint", "12"))  # an
 const DATA_DIR = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data",
                      @sprintf("nempy_%04d_%02d", year(START), month(START))))
 const MFILE = script_option("mfile", joinpath(NEMX.PKG_DIR, "data", "snem2000_fixed.m"))
-isfile(MFILE) || error("missing network case $MFILE — pass --mfile=PATH, or build it with scripts/fix_snem2000_case.jl")
+isfile(MFILE) || error("missing network case $MFILE — pass --mfile=PATH, or build it with scripts/nbenchmark/fix_snem2000_case.jl")
 isdir(DATA_DIR) || error("missing data directory $DATA_DIR")
 
 intervals = [START + Minute(5 * (i - 1)) for i in 1:N]

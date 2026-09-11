@@ -42,9 +42,9 @@
 #   by re-running the same command.
 #
 # EXAMPLES
-#   julia --project=. scripts/run_ac_recovery.jl                       # full day
-#   julia --project=. scripts/run_ac_recovery.jl 2025-09-02T18:05 1    # one interval
-#   julia --project=. scripts/run_ac_recovery.jl 2025-09-02T04:05 24 12  # hourly
+#   julia --project=. scripts/nbenchmark/run_ac_recovery.jl                       # full day
+#   julia --project=. scripts/nbenchmark/run_ac_recovery.jl 2025-09-02T18:05 1    # one interval
+#   julia --project=. scripts/nbenchmark/run_ac_recovery.jl 2025-09-02T04:05 24 12  # hourly
 # =============================================================================
 
 using NEMX

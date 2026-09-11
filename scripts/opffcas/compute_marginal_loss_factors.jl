@@ -25,7 +25,7 @@
 #   start with a single region to check the setup.
 #
 # EXAMPLE
-#   julia --project=. scripts/compute_marginal_loss_factors.jl --scenario=s3
+#   julia --project=. scripts/opffcas/compute_marginal_loss_factors.jl --scenario=s3
 # =============================================================================
 
 using NEMX

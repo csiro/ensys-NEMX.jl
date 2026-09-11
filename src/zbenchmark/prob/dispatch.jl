@@ -90,7 +90,7 @@ function dispatch!(m::SpotMarket; allow_over_constrained_dispatch_re_run::Bool=f
             # get_processed_bids produced. Default `false` reproduces the
             # validated benchmark exactly; the flag exists solely to build the
             # MLF-scaled reference series the nodal study is measured against
-            # (see network/scripts/run_network_day.jl) and must never be set
+            # (see scripts/nbenchmark/run_network_day.jl) and must never be set
             # when the benchmark itself is being run.
             cost = if s == "energy"
                 ZONAL_MLF_KEEP_SCALING[] ? (dir * prices[b]) : (dir * prices[b]) / λ

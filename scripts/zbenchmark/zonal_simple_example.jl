@@ -29,9 +29,9 @@
 #   --verbose-solver    NEMX_VERBOSE_SOLVER  off    Let the solver print
 #
 # RUN
-#   julia --project=. scripts/zonal_simple_example.jl
-#   julia --project=. scripts/zonal_simple_example.jl 130
-#   julia --project=. scripts/zonal_simple_example.jl --solver=highs
+#   julia --project=. scripts/zbenchmark/zonal_simple_example.jl
+#   julia --project=. scripts/zbenchmark/zonal_simple_example.jl 130
+#   julia --project=. scripts/zbenchmark/zonal_simple_example.jl --solver=highs
 # =============================================================================
 
 using NEMX
@@ -102,5 +102,5 @@ println("\nLocal prices at each connection point:")
 println(ZB.local_prices(market, unit_info)[:, [:unit, :region, :rrp,
                                                :adjustment, :local_price_cp]])
 println("\nWith no binding network constraint the adjustment is zero and the ",
-        "local\nprice is the regional price. See scripts/run_bess_event_study.jl ",
+        "local\nprice is the regional price. See scripts/zbenchmark/run_bess_event_study.jl ",
         "for the\ncase where it is not.")

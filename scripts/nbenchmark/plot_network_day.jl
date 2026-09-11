@@ -38,8 +38,8 @@
 #   (interactive). Tables as booktabs .tex.
 #
 # EXAMPLES
-#   julia --project=. scripts/plot_network_day.jl
-#   julia --project=. scripts/plot_network_day.jl N1 T1
+#   julia --project=. scripts/nbenchmark/plot_network_day.jl
+#   julia --project=. scripts/nbenchmark/plot_network_day.jl N1 T1
 # =============================================================================
 
 using NEMX
@@ -186,7 +186,7 @@ whose solve converged; `price` is left untouched so nothing is hidden, and the
 figure builders decide what to draw for a non-converged row.
 """
 function load_network_day()
-    isfile(PRICES_CSV) || error("Missing $PRICES_CSV - run network/scripts/run_network_day.jl first.")
+    isfile(PRICES_CSV) || error("Missing $PRICES_CSV - run scripts/nbenchmark/run_network_day.jl first.")
     p = CSV.read(PRICES_CSV, DataFrame)
     p.time = parse_ts.(p.time)
     p.formulation = String.(p.formulation)

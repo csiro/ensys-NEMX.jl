@@ -63,13 +63,13 @@
 # EXAMPLES
 #
 #   # Ten pseudo-random intervals from September 2025, downloading first
-#   julia --project=. scripts/run_zonal_benchmark.jl random 10 --download
+#   julia --project=. scripts/zbenchmark/run_zonal_benchmark.jl random 10 --download
 #
 #   # A full trading day, consecutively
-#   julia --project=. scripts/run_zonal_benchmark.jl consecutive 288 2025-09-02T04:05
+#   julia --project=. scripts/zbenchmark/run_zonal_benchmark.jl consecutive 288 2025-09-02T04:05
 #
 #   # The MLF-scaled variant used as the baseline for the nodal comparison
-#   julia --project=. scripts/run_zonal_benchmark.jl consecutive 288 \
+#   julia --project=. scripts/zbenchmark/run_zonal_benchmark.jl consecutive 288 \
 #         2025-09-02T04:05 --keep-mlf-scaling --tag=2025_09_mlf
 #
 # -----------------------------------------------------------------------------

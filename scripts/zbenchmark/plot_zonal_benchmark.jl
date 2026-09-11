@@ -16,7 +16,7 @@
 #   --out-dir=    NEMX_OUT_DIR    figures                where output goes
 #
 # EXAMPLE
-#   julia --project=. scripts/plot_zonal_benchmark.jl
+#   julia --project=. scripts/zbenchmark/plot_zonal_benchmark.jl
 # =============================================================================
 
 using NEMX

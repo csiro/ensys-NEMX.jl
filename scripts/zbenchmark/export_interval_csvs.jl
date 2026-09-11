@@ -20,7 +20,7 @@
 #   --out-dir=    NEMX_OUT_DIR      interval_<stamp>        where to write
 #
 # EXAMPLE
-#   julia --project=. scripts/export_interval_csvs.jl 2025-09-02T13:25
+#   julia --project=. scripts/zbenchmark/export_interval_csvs.jl 2025-09-02T13:25
 # =============================================================================
 
 using NEMX

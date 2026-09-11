@@ -17,7 +17,7 @@
 #   --out=        NEMX_MFILE_OUT  data/snem2000_fixed.m         repaired case
 #
 # EXAMPLE
-#   julia --project=. scripts/fix_snem2000_case.jl
+#   julia --project=. scripts/nbenchmark/fix_snem2000_case.jl
 # =============================================================================
 
 using NEMX

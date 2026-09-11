@@ -22,7 +22,7 @@
 #   --market-dir=    NEMX_MARKET_DIR   ~/nem_market_data       raw AEMO CSVs
 #
 # EXAMPLE
-#   julia --project=. scripts/build_market_scenario.jl --scenario=s1 \
+#   julia --project=. scripts/opffcas/build_market_scenario.jl --scenario=s1 \
 #         --market-dir=/data/aemo/2025-09
 # =============================================================================
 

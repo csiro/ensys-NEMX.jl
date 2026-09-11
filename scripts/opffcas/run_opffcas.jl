@@ -30,7 +30,7 @@
 #   reproduce the recorded objectives to relative 1e-8 (see test/test_opffcas.jl).
 #
 # EXAMPLE
-#   julia --project=. scripts/run_opffcas.jl --scenario=s1
+#   julia --project=. scripts/opffcas/run_opffcas.jl --scenario=s1
 # =============================================================================
 
 using NEMX

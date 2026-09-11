@@ -322,7 +322,7 @@ to the regional reference node. That is the validated benchmark, and it is what
 Setting `true` keeps the scaled bid stack -- prices stay at the connection point
 and are never referred back. This exists for ONE purpose: to generate the
 MLF-scaled reference dispatch that the network-formulation study is measured
-against (`network/scripts/run_network_day.jl`). Comparing the nodal
+against (`scripts/nbenchmark/run_network_day.jl`). Comparing the nodal
 formulations against AEMO's published ROP conflates two different things, the
 error of the power-flow model and the difference between a zonal and a nodal
 market; comparing them against a zonal run built on the SAME bid stack isolates

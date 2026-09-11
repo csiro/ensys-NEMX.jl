@@ -18,8 +18,8 @@
 #   --mfile=      NEMX_MFILE        data/snem2000_fixed.m   network case
 #
 # EXAMPLES
-#   julia --project=. scripts/run_network_interval.jl
-#   julia --project=. scripts/run_network_interval.jl 2025-09-02T18:05 DCP,ACP
+#   julia --project=. scripts/nbenchmark/run_network_interval.jl
+#   julia --project=. scripts/nbenchmark/run_network_interval.jl 2025-09-02T18:05 DCP,ACP
 # =============================================================================
 
 using NEMX

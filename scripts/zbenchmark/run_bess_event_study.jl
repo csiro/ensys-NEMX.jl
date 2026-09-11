@@ -55,7 +55,7 @@
 #   bess_event_bids.csv         ten-band offer stacks for storage units
 #   bess_event_price_check.csv  the marginal-band diagnostic
 #
-# Analyse the results with scripts/analyse_bess_event_study.jl.
+# Analyse the results with scripts/zbenchmark/analyse_bess_event_study.jl.
 #
 # FIRST RUN downloads the month's MMS tables and one NEMDE bundle per day of the
 # window. Both are idempotent, so an interrupted download resumes on re-run.

@@ -19,7 +19,7 @@
 #   --verbose-solver   NEMX_VERBOSE_SOLVER Let the solver print its own progress
 #
 # EXAMPLE
-#   julia --project=. scripts/run_opffcas_arpst.jl --scenario=s3
+#   julia --project=. scripts/opffcas/run_opffcas_arpst.jl --scenario=s3
 # =============================================================================
 
 using NEMX
