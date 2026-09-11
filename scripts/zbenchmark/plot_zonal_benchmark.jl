@@ -12,7 +12,7 @@
 # ARGUMENTS
 #   Options       Env             Default                Meaning
 #   ------------  --------------  ---------------------  ----------------------
-#   --data-dir=   NEMX_DATA_DIR   data/nempy_2025_09     where the CSVs are
+#   --data-dir=   NEMX_DATA_DIR   data/nemx_2025_09      where the CSVs are
 #   --out-dir=    NEMX_OUT_DIR    figures                where output goes
 #
 # EXAMPLE
@@ -33,7 +33,7 @@ using Statistics
 const ROOT = NEMX.PKG_DIR
 
 const DATA_CSV = script_option("prices-csv",
-                        joinpath(resolve_input_dir(joinpath(ROOT, "data", "nempy_2025_09")),
+                        joinpath(resolve_input_dir(joinpath(ROOT, "data", "nemx_2025_09")),
                                  "nem_prices_vs_rop_sept2025.csv"))
 const FIG_DIR  = resolve_output_dir(joinpath(ROOT, "figures"))
 

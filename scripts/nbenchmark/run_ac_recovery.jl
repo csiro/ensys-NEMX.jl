@@ -31,7 +31,7 @@
 #
 #   Options       Env               Default                 Meaning
 #   ------------  ----------------  ----------------------  -------------------
-#   --data-dir=   NEMX_DATA_DIR     data/nempy_2025_09      MMS db + XML cache
+#   --data-dir=   NEMX_DATA_DIR     data/nemx_2025_09       MMS db + XML cache
 #   --mfile=      NEMX_MFILE        data/snem2000_fixed.m   network case
 #   --move-floor= NEMX_MOVE_FLOOR   1.0                     $/MWh floor on the
 #                                                           cost of moving a unit
@@ -102,7 +102,7 @@ function solver_override(formulation::AbstractString)
 end
 
 const MFILE    = script_option("mfile", joinpath(ROOT, "data", "snem2000_fixed.m"))
-const DATA_DIR = resolve_input_dir(joinpath(ROOT, "data", "nempy_2025_09"))
+const DATA_DIR = resolve_input_dir(joinpath(ROOT, "data", "nemx_2025_09"))
 const OUT_CSV  = joinpath(DATA_DIR, "ac_recovery.csv")
 
 # Primal feasibility tolerances, in physical units.

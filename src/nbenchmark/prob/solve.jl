@@ -34,7 +34,7 @@ does).
 """
 function solve_network_dispatch(interval::DateTime, formulation::String;
         mfile::String="./data/snem2000_fixed.m",
-        data_dir::String="./data/nempy_2024_07",
+        data_dir::String="./data/nemx_2024_07",
         include_generic::Bool=true,
         generic_classes::Union{Nothing,Set{String}}=nothing,
         enforce_thermal::Bool=false,

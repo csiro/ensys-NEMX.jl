@@ -45,7 +45,7 @@ const NB = NEMX.NBenchmark
 
 result = NB.solve_network_dispatch(DateTime(2025, 9, 2, 12, 5), "DCP";
                                    mfile    = "data/snem2000_fixed.m",
-                                   data_dir = "data/nempy_2025_09")
+                                   data_dir = "data/nemx_2025_09")
 result.prices          # nodal and regional-reference prices
 result.decomposition   # energy / congestion / loss components
 result.binding         # active-constraint ledger

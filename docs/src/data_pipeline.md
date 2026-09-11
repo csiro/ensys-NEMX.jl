@@ -320,8 +320,8 @@ unavailable.
 using NEMX, Dates
 const ZB = NEMX.ZBenchmark
 
-db    = ZB.DBManager("data/nempy_2025_09/historical_mms.db")
-cache = ZB.XMLCacheManager("data/nempy_2025_09/xml_cache")
+db    = ZB.DBManager("data/nemx_2025_09/historical_mms.db")
+cache = ZB.XMLCacheManager("data/nemx_2025_09/xml_cache")
 
 ZB.populate!(db; start_year = 2025, start_month = 9,
              end_year = 2025, end_month = 9,

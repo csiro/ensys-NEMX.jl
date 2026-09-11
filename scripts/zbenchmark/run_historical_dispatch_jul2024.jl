@@ -28,7 +28,7 @@
 #   MMS month       July 2024
 #   interval mode   random (a fixed seed, so the sample is reproducible)
 #   intervals       10
-#   data directory  data/nempy_2024_07
+#   data directory  data/nemx_2024_07
 #   output tag      2024_07
 #
 # ARGUMENTS
@@ -38,7 +38,7 @@
 #   Options         Default            Meaning
 #   --------------  -----------------  ----------------------------------------
 #   --solver=       highs              highs | ipopt | scs
-#   --data-dir=     data/nempy_2024_07 MMS database and NEMDE case-file cache
+#   --data-dir=     data/nemx_2024_07 MMS database and NEMDE case-file cache
 #   --out-dir=      ~/.nemx/2024_07    checkpoint directory
 #   --checkpoint=   25                 flush the CSVs every N intervals
 #   --seed=         1                  RNG seed for the interval sample

@@ -35,7 +35,7 @@
 #   --------------  ----------------  -----------------  ------------------------
 #   --year=         NEMX_YEAR         from --start       MMS month to use
 #   --month=        NEMX_MONTH        from --start       MMS month to use
-#   --data-dir=     NEMX_DATA_DIR     data/nempy_<YYYY_MM>   MMS db + XML cache
+#   --data-dir=     NEMX_DATA_DIR     data/nemx_<YYYY_MM>    MMS db + XML cache
 #   --out-dir=      NEMX_OUT_DIR      ~/.nemx/<tag>      checkpoint directory
 #   --tag=          NEMX_TAG          <YYYY_MM>          suffix for output names
 #   --solver=       NEMX_SOLVER       highs              highs | ipopt | scs
@@ -106,7 +106,7 @@ const YEAR = script_integer(script_option("year", string(year(START))))
 const MONTH = script_integer(script_option("month", string(month(START))))
 const TAG = script_option("tag", @sprintf("%04d_%02d", YEAR, MONTH))
 
-const DATA_DIR = resolve_input_dir(joinpath("data", "nempy_" * TAG))
+const DATA_DIR = resolve_input_dir(joinpath("data", "nemx_" * TAG))
 const OUT_DIR = resolve_output_dir(joinpath(homedir(), ".nemx", TAG))
 const REGIONS = script_list(script_option("regions", join(ZB.DEFAULT_REGIONS, ",")))
 const CHECKPOINT_EVERY = script_integer(script_option("checkpoint", "25"))

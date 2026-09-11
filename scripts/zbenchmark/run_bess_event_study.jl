@@ -33,8 +33,8 @@
 #
 #   Options         Env               Default                Meaning
 #   --------------  ----------------  ---------------------  -------------------
-#   --data-dir=     NEMX_DATA_DIR     data/nempy_2025_11     MMS db + XML cache
-#   --out-dir=      NEMX_OUT_DIR      ~/.nemx/nempy_2025_11  checkpoint directory
+#   --data-dir=     NEMX_DATA_DIR     data/nemx_2025_11      MMS db + XML cache
+#   --out-dir=      NEMX_OUT_DIR      ~/.nemx/nemx_2025_11   checkpoint directory
 #   --region=       NEMX_REGION       NSW1                   region of interest
 #   --threshold=    NEMX_THRESHOLD    300                    $/MWh above which an
 #                                                            interval is "elevated"
@@ -85,7 +85,7 @@ using DataFrames, Dates, Statistics, CSV, Printf
 ZB.LOSS_MODEL_FROM_XML[] = true
 ZB.BDU_CROSS_SIDE_REG_LOWER_SUBTRACT[] = true
 
-const DATA_DIR      = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data", "nempy_2025_11"))
+const DATA_DIR      = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data", "nemx_2025_11"))
 const MMS_DB_PATH   = joinpath(DATA_DIR, "historical_mms.db")
 const XML_CACHE_DIR = joinpath(DATA_DIR, "xml_cache")
 
@@ -507,7 +507,7 @@ const OUT = Dict(
 # every few minutes for hours is not reliably served back at its newest version
 # by the sync engine (observed truncating a completed run to its first 668
 # intervals). Same arrangement as the September-2025 benchmark script.
-const OUT_DIR = resolve_output_dir(joinpath(homedir(), ".nemx", "nempy_2025_11"))
+const OUT_DIR = resolve_output_dir(joinpath(homedir(), ".nemx", "nemx_2025_11"))
 
 function write_outputs()
     for (name, fetch_df) in OUT

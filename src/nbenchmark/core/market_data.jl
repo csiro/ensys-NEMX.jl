@@ -15,7 +15,7 @@
 # ---------------------------------------------------------------------------
 # Market inputs for one interval (straight from nemjl, identical to benchmark)
 # ---------------------------------------------------------------------------
-function load_market(interval::DateTime; data_dir::String="./data/nempy_2024_07")
+function load_market(interval::DateTime; data_dir::String="./data/nemx_2024_07")
     mms = DBManager(joinpath(data_dir, "historical_mms.db"))
     xml = XMLCacheManager(joinpath(data_dir, "xml_cache"))
     L = RawInputsLoader(xml, mms)

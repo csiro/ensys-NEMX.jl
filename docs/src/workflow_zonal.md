@@ -28,8 +28,8 @@ NEMWeb  ──►  NEMDE case cache     ──┘         set_interval!       Un
 using NEMX, Dates
 const ZB = NEMX.ZBenchmark
 
-db     = ZB.DBManager("data/nempy_2025_09/historical_mms.db")
-cache  = ZB.XMLCacheManager("data/nempy_2025_09/xml_cache")
+db     = ZB.DBManager("data/nemx_2025_09/historical_mms.db")
+cache  = ZB.XMLCacheManager("data/nemx_2025_09/xml_cache")
 loader = ZB.RawInputsLoader(cache, db)
 
 ZB.set_interval!(loader, DateTime(2025, 9, 2, 12, 5))

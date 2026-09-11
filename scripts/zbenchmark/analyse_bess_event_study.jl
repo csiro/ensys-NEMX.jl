@@ -22,7 +22,7 @@
 # ARGUMENTS
 #   Options       Env             Default                 Meaning
 #   ------------  --------------  ----------------------  ---------------------
-#   --data-dir=   NEMX_DATA_DIR   data/nempy_2025_11      where the CSVs are
+#   --data-dir=   NEMX_DATA_DIR   data/nemx_2025_11       where the CSVs are
 #   --out-dir=    NEMX_OUT_DIR    figures                 where tables go
 #   --region=     NEMX_REGION     NSW1                    region of interest
 #   --threshold=  NEMX_THRESHOLD  300                     elevated-price cutoff
@@ -49,7 +49,7 @@ using Statistics
 using DataFrames, CSV, Dates, Statistics, Printf
 
 const ROOT     = NEMX.PKG_DIR
-const DATA_DIR = resolve_input_dir(joinpath(ROOT, "data", "nempy_2025_11"))
+const DATA_DIR = resolve_input_dir(joinpath(ROOT, "data", "nemx_2025_11"))
 const FIG_DIR  = resolve_output_dir(joinpath(ROOT, "figures"))
 
 const SPIKES = script_datetime.(script_list(script_option("intervals",

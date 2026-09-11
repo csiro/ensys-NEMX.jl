@@ -14,7 +14,7 @@
 #
 #   Options       Env               Default                 Meaning
 #   ------------  ----------------  ----------------------  -------------------
-#   --data-dir=   NEMX_DATA_DIR     data/nempy_<month>      MMS db + XML cache
+#   --data-dir=   NEMX_DATA_DIR     data/nemx_<month>       MMS db + XML cache
 #   --mfile=      NEMX_MFILE        data/snem2000_fixed.m   network case
 #
 # EXAMPLES
@@ -44,13 +44,13 @@ forms = length(ARGS) >= 2 ? String.(split(ARGS[2], ",")) :
 mfile = joinpath("data", "snem2000_fixed.m")
 isfile(mfile) || error("Run `julia network/fix_snem2000.jl` first to create $mfile")
 
-out = joinpath("data", "nempy_2024_07",
+out = joinpath("data", "nemx_2024_07",
                "network_comparison_" * Dates.format(interval, "yyyymmdd_HHMM") * ".csv")
 
 #
 f = "ACP"  # default formulation for the single-interval dispatch run
 outfile = "network_formulation_comparison.csv"
-mkt = load_market(interval; data_dir="./data/nempy_2025_09")
+mkt = load_market(interval; data_dir="./data/nemx_2025_09")
 net = load_network(mfile)
 rows = DataFrame(formulation=String[], status=String[], objective=Float64[],
                      losses_mw=Float64[], solve_time_s=Float64[],
@@ -169,7 +169,7 @@ end
 #
 
 rows = compare_formulations(interval; forms=forms, mfile=mfile,
-                            data_dir=joinpath("data", "nempy_2024_07"), outfile=out)
+                            data_dir=joinpath("data", "nemx_2024_07"), outfile=out)
 println(rows)
 println("\nwritten: $out")
 println("""

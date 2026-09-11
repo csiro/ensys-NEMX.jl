@@ -33,7 +33,7 @@
 #   interval mode   consecutive
 #   intervals       864  (3 days x 288 five-minute intervals)
 #   start           2025-09-01T00:05
-#   data directory  data/nempy_2025_09
+#   data directory  data/nemx_2025_09
 #   output tag      2025_09_3day
 #
 # RUNTIME
@@ -49,7 +49,7 @@
 #   Options         Default              Meaning
 #   --------------  -------------------  --------------------------------------
 #   --solver=       highs                highs | ipopt | scs
-#   --data-dir=     data/nempy_2025_09   MMS database and NEMDE case-file cache
+#   --data-dir=     data/nemx_2025_09    MMS database and NEMDE case-file cache
 #   --out-dir=      ~/.nemx/2025_09_3day checkpoint directory
 #   --checkpoint=   25                   flush the CSVs every N intervals
 #

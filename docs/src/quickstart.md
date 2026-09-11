@@ -63,8 +63,8 @@ With a month of AEMO data on disk, the whole assembly sequence is one call:
 using NEMX, Dates
 const ZB = NEMX.ZBenchmark
 
-db     = ZB.DBManager("data/nempy_2025_09/historical_mms.db")
-cache  = ZB.XMLCacheManager("data/nempy_2025_09/xml_cache")
+db     = ZB.DBManager("data/nemx_2025_09/historical_mms.db")
+cache  = ZB.XMLCacheManager("data/nemx_2025_09/xml_cache")
 loader = ZB.RawInputsLoader(cache, db)
 
 ZB.set_interval!(loader, DateTime(2025, 9, 2, 12, 5))
@@ -105,7 +105,7 @@ const NB = NEMX.NBenchmark
 
 result = NB.solve_network_dispatch(DateTime(2025, 9, 2, 12, 5), "DCP";
                                    mfile    = "data/snem2000_fixed.m",
-                                   data_dir = "data/nempy_2025_09")
+                                   data_dir = "data/nemx_2025_09")
 
 result.prices          # nodal prices, and the regional reference prices
 result.decomposition   # lmp = energy + congestion + loss, per region

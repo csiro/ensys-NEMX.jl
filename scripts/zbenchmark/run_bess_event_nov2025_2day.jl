@@ -40,7 +40,7 @@
 # FIXED DEFAULTS
 #   start           2025-11-20T00:05
 #   intervals       576  (2 days x 288 five-minute intervals)
-#   data directory  data/nempy_2025_11
+#   data directory  data/nemx_2025_11
 #   region          NSW1
 #
 # ARGUMENTS
@@ -49,8 +49,8 @@
 #   Options         Default              Meaning
 #   --------------  -------------------  --------------------------------------
 #   --solver=       highs                highs | ipopt | scs
-#   --data-dir=     data/nempy_2025_11   MMS database and NEMDE case-file cache
-#   --out-dir=      ~/.nemx/nempy_2025_11  checkpoint directory
+#   --data-dir=     data/nemx_2025_11    MMS database and NEMDE case-file cache
+#   --out-dir=      ~/.nemx/nemx_2025_11   checkpoint directory
 #   --region=       NSW1                 region of interest
 #   --threshold=    300                  $/MWh above which an interval counts
 #                                        as elevated for the summary

@@ -16,7 +16,7 @@
 #
 #   Options       Env               Default                 Meaning
 #   ------------  ----------------  ----------------------  -------------------
-#   --data-dir=   NEMX_DATA_DIR     data/nempy_<month>      MMS db + XML cache
+#   --data-dir=   NEMX_DATA_DIR     data/nemx_<month>       MMS db + XML cache
 #   --out-dir=    NEMX_OUT_DIR      interval_<stamp>        where to write
 #
 # EXAMPLE
@@ -35,7 +35,7 @@ const ZB = NEMX.ZBenchmark
 const NB = NEMX.NBenchmark
 using NEMX.ZBenchmark
 using NEMX.NBenchmark
-const SNAP_DATA_DIR = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data", "nempy_2025_09"))
+const SNAP_DATA_DIR = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data", "nemx_2025_09"))
 
 "Interval length in hours (NEM dispatch = 5 minutes)."
 const SNAP_TAU = 5 / 60

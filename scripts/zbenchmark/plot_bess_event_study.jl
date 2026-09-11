@@ -35,7 +35,7 @@
 # ARGUMENTS
 #   Options        Env             Default              Meaning
 #   -------------  --------------  -------------------  ------------------------
-#   --data-dir=    NEMX_DATA_DIR   data/nempy_2025_11   where the CSVs are
+#   --data-dir=    NEMX_DATA_DIR   data/nemx_2025_11    where the CSVs are
 #   --out-dir=     NEMX_OUT_DIR    figures              where the figure goes
 #   --region=      NEMX_REGION     NSW1                 region whose price is
 #                                                       drawn as the reference
@@ -75,7 +75,7 @@ using Printf
 # SECTION 1.  CONFIGURATION
 # ---------------------------------------------------------------------------
 
-const DATA_DIR = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data", "nempy_2025_11"))
+const DATA_DIR = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data", "nemx_2025_11"))
 const OUT_DIR  = resolve_output_dir(joinpath(NEMX.PKG_DIR, "figures"))
 const REGION   = script_option("region", "NSW1")
 const WINDOW   = script_integer(script_option("window", "6"))

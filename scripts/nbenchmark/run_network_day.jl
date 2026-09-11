@@ -38,7 +38,7 @@
 #
 #   Options         Env                Default              Meaning
 #   --------------  -----------------  -------------------  --------------------
-#   --data-dir=     NEMX_DATA_DIR      data/nempy_<month>   MMS db + XML cache
+#   --data-dir=     NEMX_DATA_DIR      data/nemx_<month>    MMS db + XML cache
 #   --mfile=        NEMX_MFILE         data/snem2000_fixed.m   network case
 #   --checkpoint=   NEMX_CHECKPOINT    12                   flush every N intervals
 #
@@ -107,7 +107,7 @@ const CHECKPOINT_EVERY = script_integer(script_option("checkpoint", "12"))  # an
 
 # The data directory follows the interval's month unless --data-dir says otherwise.
 const DATA_DIR = resolve_input_dir(joinpath(NEMX.PKG_DIR, "data",
-                     @sprintf("nempy_%04d_%02d", year(START), month(START))))
+                     @sprintf("nemx_%04d_%02d", year(START), month(START))))
 const MFILE = script_option("mfile", joinpath(NEMX.PKG_DIR, "data", "snem2000_fixed.m"))
 isfile(MFILE) || error("missing network case $MFILE — pass --mfile=PATH, or build it with scripts/nbenchmark/fix_snem2000_case.jl")
 isdir(DATA_DIR) || error("missing data directory $DATA_DIR")

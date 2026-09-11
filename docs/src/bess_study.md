@@ -314,7 +314,7 @@ Nothing in the scripts is specific to these two days.
 ```bash
 # A different event, a different region
 julia --project=. scripts/zbenchmark/run_bess_event_study.jl 2025-11-25T00:05 288 \
-      --region=NSW1 --data-dir=data/nempy_2025_11 --download
+      --region=NSW1 --data-dir=data/nemx_2025_11 --download
 
 julia --project=. scripts/zbenchmark/analyse_bess_event_study.jl \
       --intervals=2025-11-25T12:15 --region=NSW1

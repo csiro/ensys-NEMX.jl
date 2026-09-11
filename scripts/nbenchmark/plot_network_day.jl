@@ -29,7 +29,7 @@
 #
 #   Options       Env               Default                Meaning
 #   ------------  ----------------  ---------------------  --------------------
-#   --data-dir=   NEMX_DATA_DIR     data/nempy_2025_09     where the CSVs are
+#   --data-dir=   NEMX_DATA_DIR     data/nemx_2025_09      where the CSVs are
 #   --out-dir=    NEMX_OUT_DIR      figures                where output goes
 #   --day-tag=    NEMX_NETWORK_DAY  20250902_0405          which sweep to plot
 #
@@ -53,7 +53,7 @@ using Statistics
 const ROOT = NEMX.PKG_DIR
 
 const DAY_TAG  = script_option("day-tag", "20250902_0405")
-const DATA_DIR = resolve_input_dir(joinpath(ROOT, "data", "nempy_2025_09"))
+const DATA_DIR = resolve_input_dir(joinpath(ROOT, "data", "nemx_2025_09"))
 
 print_banner("Network-day figures",
              "day tag" => DAY_TAG,

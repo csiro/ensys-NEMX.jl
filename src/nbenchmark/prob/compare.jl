@@ -16,12 +16,12 @@
 
 Run every requested formulation for one interval and tabulate objective,
 losses, solve time and the five RRN prices, alongside the copper-plate
-benchmark prices if `data/nempy_2024_07/bdu_prices_julia_fixed.csv` exists.
+benchmark prices if `data/nemx_2024_07/bdu_prices_julia_fixed.csv` exists.
 """
 function compare_formulations(interval::DateTime;
         forms::Vector{String}=["DCP", "DCP_MLF", "LPACC", "SOCWR", "QCRM", "ACP"],
         outfile::String="network_formulation_comparison.csv", kwargs...)
-    mkt = load_market(interval; data_dir=get(kwargs, :data_dir, "./data/nempy_2024_07"))
+    mkt = load_market(interval; data_dir=get(kwargs, :data_dir, "./data/nemx_2024_07"))
     net = load_network(get(kwargs, :mfile, "./data/snem2000_fixed.m"))
     rows = DataFrame(formulation=String[], status=String[], objective=Float64[],
                      losses_mw=Float64[], solve_time_s=Float64[],
@@ -46,7 +46,7 @@ function compare_formulations(interval::DateTime;
         end
     end
     # copper-plate benchmark row
-    bench = joinpath(get(kwargs, :data_dir, "./data/nempy_2024_07"), "bdu_prices_julia_fixed.csv")
+    bench = joinpath(get(kwargs, :data_dir, "./data/nemx_2024_07"), "bdu_prices_julia_fixed.csv")
     if isfile(bench)
         b = CSV.read(bench, DataFrame)
         b = b[b.time .== interval, :]

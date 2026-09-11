@@ -28,7 +28,7 @@
 #   start           2025-09-02T04:05  (the start of the NEM trading day)
 #   intervals       288
 #   formulations    DCP,LPACC,SOCWR,QCRM,ACP
-#   data directory  data/nempy_2025_09
+#   data directory  data/nemx_2025_09
 #   network case    data/snem2000_fixed.m
 #
 # RUNTIME
@@ -50,7 +50,7 @@
 #
 #   Options         Default                    Meaning
 #   --------------  -------------------------  ------------------------------
-#   --data-dir=     data/nempy_2025_09         MMS database and case-file cache
+#   --data-dir=     data/nemx_2025_09          MMS database and case-file cache
 #   --mfile=        data/snem2000_fixed.m      the network case
 #   --checkpoint=   12                         flush every N intervals (an hour)
 #

@@ -1,14 +1,14 @@
 # NEMX.jl
 
-[![CI](https://github.com/ghulam41/NEMX.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/ghulam41/NEMX.jl/actions/workflows/CI.yml)
-[![Documentation](https://github.com/ghulam41/NEMX.jl/actions/workflows/Documentation.yml/badge.svg)](https://ghulam41.github.io/NEMX.jl/dev/)
+[![CI](https://github.com/csiro/ensys-NEMX.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/csiro/ensys-NEMX.jl/actions/workflows/CI.yml)
+[![Documentation](https://github.com/csiro/ensys-NEMX.jl/actions/workflows/Documentation.yml/badge.svg)](https://csiro.github.io/ensys-NEMX.jl)
 [![Julia](https://img.shields.io/badge/julia-%E2%89%A5%201.10-9558B2?logo=julia)](https://julialang.org/)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-research--grade-orange.svg)]()
 [![CSIRO Energy](https://img.shields.io/badge/CSIRO-Energy-009e8d.svg)](https://www.csiro.au/en/research/technology-space/energy)
 [![AR-PST](https://img.shields.io/badge/AR--PST-Stage%206-009e8d.svg)](https://www.csiro.au/en/research/technology-space/energy/electricity-transition/ar-pst)
 [![CSIRO DAP](https://img.shields.io/badge/CSIRO-DAP-009e8d.svg)](https://doi.org/10.25919/v33w-8011)
-[![DOI](https://img.shields.io/badge/DOI-10.25919%2F7j2y--c896-blue.svg)](doi.org/10.25919/v33w-8011)
+[![DOI](https://img.shields.io/badge/DOI-10.25919%2F7j2y--c896-blue.svg)](https://doi.org/10.25919/v33w-8011)
 
 Market dispatch and network-constrained optimal power flow for the Australian
 National Electricity Market, in Julia.
@@ -34,7 +34,7 @@ comparison worth making.
 
 ```julia
 using Pkg
-Pkg.add(url = "https://github.com/ghulam41/NEMX.jl")
+Pkg.add(url = "https://github.com/csiro/ensys-NEMX.jl")
 ```
 
 Julia 1.10 or later. Every solver the package needs is open source — HiGHS for
@@ -186,7 +186,7 @@ model, so that agreement is a strong statement about the whole pipeline.
 
 ## Documentation
 
-Full manual: <https://ghulam41.github.io/NEMX.jl/dev/>. It covers installation,
+Full manual: <https://csiro.github.io/ensys-NEMX.jl>. It covers installation,
 the data-acquisition workflow, the architecture, a reference for every
 behavioural flag, and the API of each submodule. Build it locally with:
 
