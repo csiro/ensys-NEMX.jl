@@ -15,13 +15,13 @@ open source, so there is no licence to obtain and no separate installation step.
 
 ```julia
 using Pkg
-Pkg.add(url = "https://github.com/ghulam41/NEMX.jl")
+Pkg.add(url = "https://github.com/csiro/ensys-NEMX.jl")
 ```
 
 Or, for development:
 
 ```bash
-git clone https://github.com/ghulam41/NEMX.jl
+git clone https://github.com/csiro/ensys-NEMX.jl
 cd NEMX.jl
 julia --project=. -e 'using Pkg; Pkg.instantiate()'
 ```

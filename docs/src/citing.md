@@ -8,7 +8,7 @@ If NEMX contributes to published work, please cite it.
   title   = {{NEMX.jl}: Market dispatch and network-constrained optimal power
              flow for the Australian National Electricity Market},
   year    = {2026},
-  url     = {https://github.com/ghulam41/NEMX.jl},
+  url     = {https://github.com/csiro/ensys-NEMX.jl},
   version = {0.2.0},
   note    = {Commonwealth Scientific and Industrial Research Organisation (CSIRO)}
 }

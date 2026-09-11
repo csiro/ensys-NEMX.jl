@@ -19,7 +19,7 @@ problem without access to your data.
 ## Setting up
 
 ```bash
-git clone https://github.com/ghulam41/NEMX.jl
+git clone https://github.com/csiro/ensys-NEMX.jl
 cd NEMX.jl
 julia --project=. -e 'using Pkg; Pkg.instantiate()'
 julia --project=. -e 'using Pkg; Pkg.test()'
@@ -82,7 +82,7 @@ Follow the surrounding code. Beyond that:
 
 **Reproducibility.** A result must be reproducible from the log printed above it.
 If you add a switch, add it to `print_flags` in the scripts that touch it and to
-[the flag reference](https://ghulam41.github.io/NEMX.jl/dev/flags/).
+[the flag reference](https://csiro.github.io/ensys-NEMX.jl/dev/flags/).
 
 **Not overstating what a number means.** If a quantity is not identifiable, say
 so where it is computed and report what is. If a fixture does not exercise a

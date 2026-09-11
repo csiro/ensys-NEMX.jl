@@ -26,7 +26,7 @@ makedocs(
     authors  = "Ghulam Mohy ud Din",
     sitename = "NEMX.jl",
     format = Documenter.HTML(;
-        canonical = "https://ghulam41.github.io/NEMX.jl",
+        canonical = "https://csiro.github.io/ensys-NEMX.jl",
         edit_link = "main",
         assets = String[],
         sidebar_sitename = false,
@@ -64,7 +64,7 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/ghulam41/NEMX.jl",
+    repo = "github.com/csiro/ensys-NEMX.jl",
     devbranch = "main",
     push_preview = true,
 )

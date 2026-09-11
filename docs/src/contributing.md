@@ -1,7 +1,7 @@
 # Contributing
 
 Bug reports, questions and pull requests are all welcome. This page covers what
-the code expects; [`CONTRIBUTING.md`](https://github.com/ghulam41/NEMX.jl/blob/main/CONTRIBUTING.md)
+the code expects; [`CONTRIBUTING.md`](https://github.com/csiro/ensys-NEMX.jl/blob/main/CONTRIBUTING.md)
 at the repository root has the same content.
 
 ## Reporting a problem
@@ -20,7 +20,7 @@ problem without access to your data.
 ## Setting up
 
 ```bash
-git clone https://github.com/ghulam41/NEMX.jl
+git clone https://github.com/csiro/ensys-NEMX.jl
 cd NEMX.jl
 julia --project=. -e 'using Pkg; Pkg.instantiate()'
 julia --project=. -e 'using Pkg; Pkg.test()'
