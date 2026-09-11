@@ -1,0 +1,116 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['*']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  # Cancel superseded runs on the same ref, but never cancel a run on main.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+
+jobs:
+  test:
+    name: julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    permissions:
+      actions: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - '1.10'      # lowest supported, per [compat]
+          - '1'         # latest stable
+        os:
+          - ubuntu-latest
+          - macOS-latest
+          - windows-latest
+        arch:
+          - x64
+        include:
+          # The slow AC and IVR regressions on the 2000-bus case run on one
+          # configuration only. They add ~2.5 minutes and are platform
+          # independent, so paying for them nine times over buys nothing.
+          - version: '1'
+            os: ubuntu-latest
+            arch: x64
+            slow: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
+
+      - uses: julia-actions/cache@fa02766e078afaaf09b14210362cee14137e6a32
+
+      - uses: julia-actions/julia-buildpkg@v1
+
+      - uses: julia-actions/julia-runtest@v1
+        env:
+          # Off unless this is the designated slow job. The default suite has to
+          # stay fast enough to be worth running on every push.
+          NEMX_TEST_SLOW: ${{ matrix.slow || '0' }}
+          # Never in CI: these download hundreds of megabytes from AEMO, and a
+          # test suite must not depend on a third party's availability.
+          NEMX_TEST_NETWORK: '0'
+          # No display on a runner; PlotlyJS must not try to open a window.
+          NEMX_NO_DISPLAY: '1'
+
+      - uses: julia-actions/julia-processcoverage@v1
+
+      - uses: codecov/codecov-action@v4
+        with:
+          files: lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+  scripts:
+    # Every script must at least PARSE and load its dependencies. A script that
+    # has drifted out of step with the library is invisible to the unit tests,
+    # because nothing includes it — this is the cheapest guard against that.
+    name: scripts parse
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1'
+      - uses: julia-actions/cache@fa02766e078afaaf09b14210362cee14137e6a32
+      - uses: julia-actions/julia-buildpkg@v1
+      - name: Parse every script
+        run: |
+          julia --project=. -e '
+            function main()
+                bad = String[]
+                for (root, dirs, files) in walkdir("scripts")
+                    for file in sort(files)
+                        endswith(file, ".jl") || continue
+                        path = joinpath(root, file)
+                        try
+                            Meta.parseall(read(path, String))
+                            println("  ok    ", path)
+                        catch err
+                            push!(bad, path)
+                            println("  FAIL  ", path, " :: ",
+                                    first(sprint(showerror, err), 200))
+                        end
+                    end
+                end
+                isempty(bad) || error("$(length(bad)) script(s) failed to parse")
+            end
+            main()'
+
+      - name: Run the examples that need no downloaded data
+        env:
+          NEMX_NO_DISPLAY: '1'
+        run: |
+          julia --project=. scripts/zbenchmark/zonal_simple_example.jl

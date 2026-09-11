@@ -1,0 +1,57 @@
+# =============================================================================
+# NEMX.jl
+# =============================================================================
+
+# --- Julia ------------------------------------------------------------------
+# The Manifest is deliberately NOT committed: NEMX is a package, and a committed
+# Manifest would pin every downstream user's environment to ours.
+/Manifest.toml
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+/deps/deps.jl
+/deps/build.log
+.DS_Store
+
+# --- Documentation build ----------------------------------------------------
+/docs/build/
+/docs/site/
+/docs/Manifest.toml
+
+# --- Market data ------------------------------------------------------------
+# `data/` holds AEMO market data and model outputs. It is not committed, for
+# three reasons: the NEMDE case-file caches run to ~100 GB per month, the MMS
+# mirrors to ~1.4 GB each, and all of it is reproducible by re-running the
+# download step. See data/README.md for how to obtain or rebuild it.
+#
+# The two MATPOWER network cases ARE committed (about 1.4 MB each) — they are
+# inputs to the package rather than downloaded data, and nothing runs without
+# them. Everything else under data/ is ignored.
+/data/*
+!/data/README.md
+!/data/*.m
+!/data/*.yaml
+
+# Results written by the analysis scripts.
+/figures/
+/results/
+*.csv.gz
+
+# A `sessions/` tree appears if a sandbox-absolute path is ever used as a
+# relative one. It is never wanted here.
+/sessions/
+
+# --- Local-only notes -------------------------------------------------------
+/CHANGELOG.md
+
+# --- Scratch ----------------------------------------------------------------
+/tmp/
+/scratch/
+*.log
+*.swp
+*~
+
+# --- Optional, licence-restricted ------------------------------------------
+# CoinHSL is licensed by STFC and is not redistributable. It is discovered at
+# run time if unpacked here; see NEMX.NBenchmark for the search order.
+/vendor/coinhsl/

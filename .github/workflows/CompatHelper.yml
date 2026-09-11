@@ -1,0 +1,30 @@
+name: CompatHelper
+
+# Opens a pull request when a dependency's [compat] bound falls behind. Worth
+# having here specifically because this package carries a lower bound that is
+# load-bearing rather than cosmetic — PowerModelsACDC 0.10 is required for the
+# DC-generator API the OPFFCAS builders use — so a bound moving needs a human
+# to look at it rather than being bumped on sight.
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  CompatHelper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1'
+      - name: Install CompatHelper
+        run: julia -e 'using Pkg; Pkg.add("CompatHelper")'
+      - name: Run CompatHelper
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMPATHELPER_PRIV: ${{ secrets.DOCUMENTER_KEY }}
+        run: julia -e 'using CompatHelper; CompatHelper.main()'

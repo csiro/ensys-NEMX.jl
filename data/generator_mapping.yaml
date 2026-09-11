@@ -1,0 +1,43 @@
+# Parsing code ignores type=null.
+
+HydroDispatch:
+- {fuel: IMP, type: null}
+
+RenewableDispatch:
+- {fuel: SOLAR, type: PV}
+- {fuel: SOLAR, type: UN}
+- {fuel: WIND, type: WIND}
+- {fuel: WIND, type: null}
+- {fuel: SOLAR, type: CSP}
+- {fuel: BIOMASS, type: null}
+
+
+ThermalStandard:
+- {fuel: OIL, type: Distillate}
+- {fuel: OIL, type: null}
+- {fuel: DISTILLATE, type: null}
+- {fuel: COAL, type: blackcoal}
+- {fuel: COAL, type: browncoal}
+- {fuel: COAL, type: null}
+- {fuel: NG, type: null}
+- {fuel: GAS, type: naturalgas}
+- {fuel: GAS, type: null}
+- {fuel: NUCLEAR, type: null}
+- {fuel: NUC, type: null}
+- {fuel: SYNC_COND, type: SYNC_COND}
+- {fuel: OTHER, type: OT}
+- {fuel: GEOTHERMAL, type: null}
+
+
+# Parsing code ignores type=null.
+
+HydroReservoir:
+- {fuel: HYDRO, type: HYDRO}
+- {fuel: HYDRO, type: hydrowater}
+- {fuel: HYDRO, type: Water}
+- {fuel: HYDRO, type: null}
+
+
+EnergyReservoirStorage:
+- {fuel: STORAGE, type: Battery}
+

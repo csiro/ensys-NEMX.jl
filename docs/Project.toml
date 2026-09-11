@@ -1,0 +1,6 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+NEMX = "f9c92388-1d79-4b6e-8f83-10877b247f9a"
+
+[compat]
+Documenter = "1"
