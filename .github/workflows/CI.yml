@@ -44,16 +44,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: julia-actions/setup-julia@v2
+      # Every third-party action here has to sit on the enterprise allowlist,
+      # which admits only setup-julia at this exact tag and cache at one of two
+      # pinned commits. The julia-actions helpers (buildpkg, runtest,
+      # processcoverage) are not on it, so their few lines of work are spelled
+      # out as plain `julia` invocations below.
+      - uses: julia-actions/setup-julia@v3.0.2
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
 
       - uses: julia-actions/cache@fa02766e078afaaf09b14210362cee14137e6a32
 
-      - uses: julia-actions/julia-buildpkg@v1
+      - name: Instantiate and build
+        run: julia --color=yes --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.build()'
 
-      - uses: julia-actions/julia-runtest@v1
+      - name: Run the test suite
         env:
           # Off unless this is the designated slow job. The default suite has to
           # stay fast enough to be worth running on every push.
@@ -63,14 +69,32 @@ jobs:
           NEMX_TEST_NETWORK: '0'
           # No display on a runner; PlotlyJS must not try to open a window.
           NEMX_NO_DISPLAY: '1'
+        run: |
+          julia --color=yes --project=. -e '
+            using Pkg
+            Pkg.test(coverage = true,
+                     julia_args = ["--check-bounds=yes", "--depwarn=yes"])'
 
-      - uses: julia-actions/julia-processcoverage@v1
+      - name: Collect coverage into lcov.info
+        # Coverage.jl goes in a throwaway environment so it can never perturb
+        # the resolved versions the tests above just ran against.
+        run: |
+          julia --color=yes -e '
+            using Pkg
+            Pkg.activate(; temp = true)
+            Pkg.add("Coverage")
+            using Coverage
+            LCOV.writefile("lcov.info", process_folder("src"))'
 
-      - uses: codecov/codecov-action@v4
+      - uses: actions/upload-artifact@v4
         with:
-          files: lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: false
+          # codecov/codecov-action is not on the enterprise allowlist, so the
+          # report is kept as a build artifact instead of being pushed to a
+          # third-party service.
+          name: lcov-${{ matrix.version }}-${{ matrix.os }}-${{ matrix.arch }}
+          path: lcov.info
+          if-no-files-found: warn
+          retention-days: 14
 
   scripts:
     # Every script must at least PARSE and load its dependencies. A script that
@@ -79,13 +103,17 @@ jobs:
     name: scripts parse
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      actions: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@v2
+      - uses: julia-actions/setup-julia@v3.0.2
         with:
           version: '1'
       - uses: julia-actions/cache@fa02766e078afaaf09b14210362cee14137e6a32
-      - uses: julia-actions/julia-buildpkg@v1
+      - name: Instantiate and build
+        run: julia --color=yes --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.build()'
       - name: Parse every script
         run: |
           julia --project=. -e '

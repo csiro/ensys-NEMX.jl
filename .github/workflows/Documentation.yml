@@ -2,46 +2,40 @@ name: Documentation
 
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main
     tags: ['*']
-  pull_request:
   workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+  cancel-in-progress: true
 
 jobs:
   build:
-    name: Build and deploy
+    name: Build and deploy docs
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+
     permissions:
-      actions: write
-      contents: write        # to push to gh-pages
-      pull-requests: read
-      statuses: write        # for the preview link on pull requests
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
 
-      - uses: julia-actions/setup-julia@v2
+      - uses: julia-actions/setup-julia@v3.0.2
         with:
-          version: '1'
+          version: '1.10'
 
       - uses: julia-actions/cache@fa02766e078afaaf09b14210362cee14137e6a32
 
-      - name: Instantiate the docs environment
+      - name: Instantiate docs environment
         run: |
           julia --project=docs -e '
             using Pkg
-            Pkg.develop(PackageSpec(path = pwd()))
+            Pkg.develop(PackageSpec(path=pwd()))
             Pkg.instantiate()'
 
-      - name: Build the manual
+      - name: Build and deploy
         env:
-          # Documenter deploys with this; on a pull request it only builds.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
-          # No display on a runner.
-          NEMX_NO_DISPLAY: '1'
         run: julia --project=docs docs/make.jl
