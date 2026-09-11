@@ -20,6 +20,9 @@ jobs:
     permissions:
       actions: write
       contents: read
+    defaults:
+      run:
+        shell: bash     # one quoting dialect on all three runners
     strategy:
       fail-fast: false
       matrix:
@@ -66,19 +69,15 @@ jobs:
         run: |
           julia --color=yes --project=. -e '
             using Pkg
+            # `coverage = true` makes Pkg pass --code-coverage=@<pkgdir>, which
+            # restricts tracking to this package. The second flag makes Julia
+            # write an LCOV tracefile itself (%p = pid) instead of per-file
+            # .cov files. That sidesteps Coverage.jl entirely, and with it a
+            # Julia 1.13.0 bug: the .cov writer prints an uninitialised buffer
+            # for the first line of the first file it handles when that line is
+            # blank, which several files under src/opffcas/ have.
             Pkg.test(coverage = true,
-                     julia_args = ["--check-bounds=yes", "--depwarn=yes"])'
-
-      - name: Collect coverage into lcov.info
-        # Coverage.jl goes in a throwaway environment so it can never perturb
-        # the resolved versions the tests above just ran against.
-        run: |
-          julia --color=yes -e '
-            using Pkg
-            Pkg.activate(; temp = true)
-            Pkg.add("Coverage")
-            using Coverage
-            LCOV.writefile("lcov.info", process_folder("src"))'
+                     julia_args = ["--code-coverage=$(pwd())/lcov-%p.info"])'
 
       - uses: actions/upload-artifact@v4
         with:
@@ -86,7 +85,7 @@ jobs:
           # report is kept as a build artifact instead of being pushed to a
           # third-party service.
           name: lcov-${{ matrix.version }}-${{ matrix.runner.os }}-${{ matrix.runner.arch }}
-          path: lcov.info
+          path: lcov-*.info
           if-no-files-found: warn
           retention-days: 14
 
