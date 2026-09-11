@@ -14,8 +14,8 @@ concurrency:
 
 jobs:
   test:
-    name: julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }}
-    runs-on: ${{ matrix.os }}
+    name: julia ${{ matrix.version }} - ${{ matrix.runner.os }} - ${{ matrix.runner.arch }}
+    runs-on: ${{ matrix.runner.os }}
     timeout-minutes: 60
     permissions:
       actions: write
@@ -26,20 +26,13 @@ jobs:
         version:
           - '1.10'      # lowest supported, per [compat]
           - '1'         # latest stable
-        os:
-          - ubuntu-latest
-          - macOS-latest
-          - windows-latest
-        arch:
-          - x64
-        include:
-          # The slow AC and IVR regressions on the 2000-bus case run on one
-          # configuration only. They add ~2.5 minutes and are platform
-          # independent, so paying for them nine times over buys nothing.
-          - version: '1'
-            os: ubuntu-latest
-            arch: x64
-            slow: '1'
+        # Architecture is pinned to its runner rather than being a free
+        # dimension of its own: macOS-latest is Apple Silicon, and asking
+        # setup-julia for x64 there fails instead of quietly cross-installing.
+        runner:
+          - {os: ubuntu-latest,  arch: x64}
+          - {os: macOS-latest,   arch: aarch64}
+          - {os: windows-latest, arch: x64}
 
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +45,7 @@ jobs:
       - uses: julia-actions/setup-julia@v3.0.2
         with:
           version: ${{ matrix.version }}
-          arch: ${{ matrix.arch }}
+          arch: ${{ matrix.runner.arch }}
 
       - uses: julia-actions/cache@a7bed9df697e5d7309d68afe7542a87621a8b6c8 # v3.3.0
 
@@ -61,9 +54,10 @@ jobs:
 
       - name: Run the test suite
         env:
-          # Off unless this is the designated slow job. The default suite has to
-          # stay fast enough to be worth running on every push.
-          NEMX_TEST_SLOW: ${{ matrix.slow || '0' }}
+          # The slow AC and IVR regressions on the 2000-bus case run on one
+          # configuration only. They add ~2.5 minutes and are platform
+          # independent, so paying for them six times over buys nothing.
+          NEMX_TEST_SLOW: ${{ (matrix.version == '1' && matrix.runner.os == 'ubuntu-latest') && '1' || '0' }}
           # Never in CI: these download hundreds of megabytes from AEMO, and a
           # test suite must not depend on a third party's availability.
           NEMX_TEST_NETWORK: '0'
@@ -91,7 +85,7 @@ jobs:
           # codecov/codecov-action is not on the enterprise allowlist, so the
           # report is kept as a build artifact instead of being pushed to a
           # third-party service.
-          name: lcov-${{ matrix.version }}-${{ matrix.os }}-${{ matrix.arch }}
+          name: lcov-${{ matrix.version }}-${{ matrix.runner.os }}-${{ matrix.runner.arch }}
           path: lcov.info
           if-no-files-found: warn
           retention-days: 14
