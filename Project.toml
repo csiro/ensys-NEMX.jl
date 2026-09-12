@@ -1,7 +1,7 @@
 name = "NEMX"
 uuid = "f9c92388-1d79-4b6e-8f83-10877b247f9a"
-authors = ["Ghulam Mohy ud Din <ghulam.mohyuddin@csiro.au>"]
 version = "0.2.0"
+authors = ["Ghulam Mohy ud Din <ghulam.mohyuddin@csiro.au>"]
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
@@ -41,15 +41,11 @@ JuMP = "1"
 Memento = "1"
 PlotlyJS = "0.18"
 PowerModels = "0.21"
-# Lower-bounded at 0.10 because that release made DC generators a first-class
-# component: `constraint_power_balance_dc` reads `var(pm, :pgdc)` and
-# `ref(pm, :bus_gens_dc)`, which only exist once `variable_dcgenerator_power`
-# and `ref_add_gendc!` are called. The OPFFCAS builders call both. On 0.9 those
-# names do not exist at all, and 0.8 does not load on Julia 1.10.
 PowerModelsACDC = "0.10"
 PowerModelsSecurityConstrained = "0.12"
 SCS = "2"
 SQLite = "1"
+Statistics = "1"
 ZipFile = "0.10"
 julia = "1.10"
 
