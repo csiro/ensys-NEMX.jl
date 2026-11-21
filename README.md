@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/src/assets/nemx-sticker.svg" alt="NEMX.jl — Reconstruct · Optimise · Analyse · Predict · Plan NEM Dispatch" width="600">
+</p>
+
 # NEMX.jl
 
 [![CI](https://github.com/csiro/ensys-NEMX.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/csiro/ensys-NEMX.jl/actions/workflows/CI.yml)
